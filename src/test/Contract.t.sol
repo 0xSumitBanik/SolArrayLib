@@ -5,8 +5,8 @@ import "ds-test/test.sol";
 import {ArrayLib} from "../ArrayLib.sol";
 contract ContractTest is DSTest {
     uint[] private sampleArray = [202,27,123,1,66,76,2,55,111,455];
-    function setUp() public {
-    }
+    // function setUp() public {
+    // }
 
     function testSum() public {
         uint sum = ArrayLib.sum(sampleArray);
@@ -35,5 +35,20 @@ contract ContractTest is DSTest {
         assert(reversedArray[7]==123);
         assert(reversedArray[8]==27);
         assert(reversedArray[9]==202);
-    }    
+    }
+
+    function testSortArray() public view{
+        uint[] memory sortedArray = ArrayLib.sort(sampleArray);
+        assert(sortedArray[0]==1);
+        assert(sortedArray[1]==2);
+        assert(sortedArray[2]==27);
+        assert(sortedArray[3]==55);
+        assert(sortedArray[4]==66);
+        assert(sortedArray[5]==76);
+        assert(sortedArray[6]==111);
+        assert(sortedArray[7]==123);
+        assert(sortedArray[8]==202);
+        assert(sortedArray[9]==455);
+    } 
+   
 }

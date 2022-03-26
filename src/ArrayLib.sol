@@ -58,4 +58,16 @@ library ArrayLib{
     return _reverseArray(_array,0,end);
   }
 
+  // Following sort function uses the bubble sort (To be optimized)
+  function sort(uint[] memory _array) internal pure returns (uint[] memory){
+      uint arrayLength = _array.length;
+      for(uint i;i<arrayLength-1;++i){
+        for(uint j;j<arrayLength-1-i;++j){
+          if(_array[j+1]<_array[j]){
+            (_array[j],_array[j+1]) = (_array[j+1],_array[j]);
+        }
+        }
+      }
+      return _array;
+  }
 }
