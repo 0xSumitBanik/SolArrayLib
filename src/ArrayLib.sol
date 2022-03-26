@@ -70,4 +70,20 @@ library ArrayLib{
       }
       return _array;
   }
+
+  // Following search function uses the linear search (To be optimized)
+  function search(uint[] memory _array,uint key) internal pure returns (bool){
+      uint arrayLength = _array.length;
+      uint index;
+      bool elementFound;
+
+      for(index;index<arrayLength;++index){
+        if(_array[index] == key){
+          elementFound = true;
+          return elementFound;
+        }
+      }
+
+      return elementFound;
+  }
 }

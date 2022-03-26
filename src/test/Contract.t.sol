@@ -51,4 +51,8 @@ contract ContractTest is DSTest {
         assert(sortedArray[9]==455);
     } 
    
+   function testSearchElement() public{
+       bool elementFound = ArrayLib.search(sampleArray,455);
+       assertTrue(elementFound);
+   }
 }
