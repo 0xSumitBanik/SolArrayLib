@@ -2,88 +2,113 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-library ArrayLib{
-  function sum(uint[] memory _array) internal pure returns (uint){
-    uint index;
-    uint arrayLength = _array.length;
-    uint sumOfElements;
+library ArrayLib {
+    function sum(uint256[] memory _array) internal pure returns (uint256) {
+        uint256 index;
+        uint256 arrayLength = _array.length;
+        uint256 sumOfElements;
 
-    if(arrayLength==1) return _array[0];
-    for(index;index<arrayLength;++index){
-      sumOfElements+=_array[index];
+        if (arrayLength == 1) return _array[0];
+        for (index; index < arrayLength; ++index) {
+            sumOfElements += _array[index];
+        }
+        return sumOfElements;
     }
-    return sumOfElements;
-  }
 
-  function min(uint[] memory _array)  internal pure returns(uint){
-      uint minimumElement = _array[0];
-      uint index;
-      uint arrayLength = _array.length;
+    function min(uint256[] memory _array) internal pure returns (uint256) {
+        uint256 minimumElement = _array[0];
+        uint256 index;
+        uint256 arrayLength = _array.length;
 
-      for(index; index < arrayLength; ++index){
-            if(_array[index] < minimumElement){
+        for (index; index < arrayLength; ++index) {
+            if (_array[index] < minimumElement) {
                 minimumElement = _array[index];
             }
         }
         return minimumElement;
-  }
+    }
 
-  function max(uint[] memory _array)  internal pure returns(uint){
-      uint maximumElement = _array[0];
-      uint index;
-      uint arrayLength = _array.length;
+    function max(uint256[] memory _array) internal pure returns (uint256) {
+        uint256 maximumElement = _array[0];
+        uint256 index;
+        uint256 arrayLength = _array.length;
 
-      for(index; index < arrayLength; ++index){
-            if(_array[index] > maximumElement){
+        for (index; index < arrayLength; ++index) {
+            if (_array[index] > maximumElement) {
                 maximumElement = _array[index];
             }
         }
         return maximumElement;
-  }
+    }
 
-  function _reverseArray(uint[] memory _array,uint start,uint end) internal pure returns(uint[] memory){
-
-      while(start<end){
-        (_array[start],_array[end])=(_array[end],_array[start]);
-        start++;
-        end--;
-      }
-
-      return _array;
-
-  }
-
-  function reverse(uint[] memory _array) internal pure returns(uint[] memory){
-    uint end = (_array.length)-1;
-    return _reverseArray(_array,0,end);
-  }
-
-  // Following sort function uses the bubble sort (To be optimized)
-  function sort(uint[] memory _array) internal pure returns (uint[] memory){
-      uint arrayLength = _array.length;
-      for(uint i;i<arrayLength-1;++i){
-        for(uint j;j<arrayLength-1-i;++j){
-          if(_array[j+1]<_array[j]){
-            (_array[j],_array[j+1]) = (_array[j+1],_array[j]);
+    function _reverseArray(
+        uint256[] memory _array,
+        uint256 start,
+        uint256 end
+    ) internal pure returns (uint256[] memory) {
+        while (start < end) {
+            (_array[start], _array[end]) = (_array[end], _array[start]);
+            start++;
+            end--;
         }
+
+        return _array;
+    }
+
+    function reverse(uint256[] memory _array)
+        internal
+        pure
+        returns (uint256[] memory)
+    {
+        uint256 end = (_array.length) - 1;
+        return _reverseArray(_array, 0, end);
+    }
+
+    // Following search function uses the linear search (To be optimized)
+    function search(uint256[] memory _array, uint256 key)
+        internal
+        pure
+        returns (bool)
+    {
+        uint256 arrayLength = _array.length;
+        uint256 index;
+        bool elementFound;
+
+        for (index; index < arrayLength; ++index) {
+            if (_array[index] == key) {
+                elementFound = true;
+                return elementFound;
+            }
         }
-      }
-      return _array;
-  }
 
-  // Following search function uses the linear search (To be optimized)
-  function search(uint[] memory _array,uint key) internal pure returns (bool){
-      uint arrayLength = _array.length;
-      uint index;
-      bool elementFound;
+        return elementFound;
+    }
 
-      for(index;index<arrayLength;++index){
-        if(_array[index] == key){
-          elementFound = true;
-          return elementFound;
+    // Following Sort uses the QuickSort Algorithm internally
+    function sort(uint[] memory _array) internal pure returns(uint[] memory){
+        if (_array.length > 0)
+            quickSort(_array, 0, _array.length - 1);
+
+        return _array;
+    }
+
+    function quickSort(uint[] memory _array, uint left, uint right) internal pure {
+        if (left >= right)
+            return;
+        uint p = _array[(left + right) / 2];   // the pivot element
+        uint i = left;
+        uint j = right;
+        while (i < j) {
+            while (_array[i] < p) ++i;
+            while (_array[j] > p) --j;
+            if (_array[i] > _array[j])
+                (_array[i], _array[j]) = (_array[j], _array[i]);
+            else
+                ++i;
         }
-      }
 
-      return elementFound;
-  }
+        if (j > left)
+            quickSort(_array, left, j - 1);  
+        quickSort(_array, j + 1, right);
+    }
 }
