@@ -111,4 +111,30 @@ library ArrayLib {
             quickSort(_array, left, j - 1);  
         quickSort(_array, j + 1, right);
     }
+
+    // Note: This function has scope for gas optimization
+    function leftRotate(uint[] memory _array,uint bits)
+    internal pure
+    returns (uint[] memory){
+        uint arrayLength = _array.length;
+        uint index;
+
+        for(index; index < bits; ++index)
+            leftRotatebyOne(_array, arrayLength);
+
+        return _array;
+    }
+
+    function leftRotatebyOne(uint[] memory _array, uint length)
+    internal
+    pure
+    {
+        uint temp = _array[0];
+        uint index;
+       
+        for(index; index < length - 1; ++index)
+            _array[index] = _array[index + 1];
+    
+        _array[length-1] = temp;
+    }
 }
