@@ -55,4 +55,18 @@ contract ContractTest is DSTest {
        bool elementFound = ArrayLib.search(sampleArray,455);
        assertTrue(elementFound);
    }
+
+   function testLeftRotateArray() public view{
+        uint[] memory sortedArray = ArrayLib.leftRotate(sampleArray, 5);
+        assert(sortedArray[0]==76);
+        assert(sortedArray[1]==2);
+        assert(sortedArray[2]==55);
+        assert(sortedArray[3]==111);
+        assert(sortedArray[4]==455);
+        assert(sortedArray[5]==202);
+        assert(sortedArray[6]==27);
+        assert(sortedArray[7]==123);
+        assert(sortedArray[8]==1);
+        assert(sortedArray[9]==66);
+   }
 }
